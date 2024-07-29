@@ -5,6 +5,7 @@ import {
   useJsApiLoader,
   StreetViewPanorama,
 } from "@react-google-maps/api";
+import getRandomLatAndLng from "./LocationRepository";
 
 const StreetView = () => {
   const { isLoaded } = useJsApiLoader({
@@ -27,10 +28,13 @@ const StreetView = () => {
     zIndex: "1000",
   };
 
-  const latAndLng = {
-    lat: 45.5536821,
-    lng: -122.6276485,
-  };
+  //original
+  // const latAndLng = {
+  //   lat: 45.5536821,
+  //   lng: -122.6276485,
+  // };
+
+  const latAndLng = getRandomLatAndLng();
   const streetViewOptions = { addressControl: false };
 
   const coordsRef = useRef(latAndLng);
@@ -64,7 +68,6 @@ const StreetView = () => {
 
   useEffect(() => {
     setCurrentCoords(coordsRef.current);
-    console.log(`currentCoords set: ${JSON.stringify(currentCoords, null, 2)}`);
   }, [coordsChanged]); // Dependency array includes coordsChanged
 
   return isLoaded ? (
