@@ -19,20 +19,6 @@ const StreetView = () => {
     marginLeft: "5%",
     marginTop: "2%",
   };
-  const mapViewStyle = {
-    width: "400px",
-    height: "400px",
-    position: "absolute",
-    bottom: "85px",
-    right: "250px",
-    zIndex: "1000",
-  };
-
-  //original
-  // const latAndLng = {
-  //   lat: 45.5536821,
-  //   lng: -122.6276485,
-  // };
 
   const latAndLng = getRandomLatAndLng();
   const streetViewOptions = { addressControl: false };
@@ -97,13 +83,6 @@ const StreetView = () => {
             />
           </div>
         </GoogleMap>
-        <div>
-          <GoogleMap
-            mapContainerStyle={mapViewStyle}
-            zoom={10}
-            center={latAndLng}
-          />
-        </div>
       </div>
     </>
   ) : (
