@@ -1,5 +1,5 @@
 import "./StreetView.css";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   GoogleMap,
   useJsApiLoader,
