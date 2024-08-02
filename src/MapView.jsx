@@ -4,12 +4,9 @@ import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
 const MapView = () => {
   const [coords, setCoords] = useState({
-    lat: null,
-    lng: null,
+    lat: 0,
+    lng: 0,
   });
-
-  const allValuesNull = (obj) =>
-    Object.values(obj).every((value) => value === null);
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -30,6 +27,8 @@ const MapView = () => {
     setCoords(newCoords);
   };
 
+  console.log("rerender......");
+
   return isLoaded ? (
     <div className="container-view">
       <GoogleMap
@@ -38,11 +37,7 @@ const MapView = () => {
         center={coords}
         onClick={handleClickedMap}
       >
-        <Marker
-          position={
-            !allValuesNull(coords) ? { lat: coords.lat, lng: coords.lng } : {}
-          }
-        />
+        {coords.lat !== 0 && coords.lng !== 0 && <Marker position={coords} />}
       </GoogleMap>
     </div>
   ) : (
