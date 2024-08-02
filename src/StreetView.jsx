@@ -6,8 +6,11 @@ import {
   StreetViewPanorama,
 } from "@react-google-maps/api";
 import getRandomLatAndLng from "./LocationRepository";
+import { useDispatch } from "react-redux";
+import { setFirstStart } from "./features/map/mapSlice";
 
 const StreetView = () => {
+  const dispatch = useDispatch();
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS,
@@ -41,6 +44,7 @@ const StreetView = () => {
       if (coordsRef.current.lat !== lat || coordsRef.current.lng !== lng) {
         coordsRef.current = { lat, lng };
         setCoordsChanged((prev) => !prev); // Toggle state to trigger useEffect
+        dispatch(setFirstStart({ lat: lat, lng: lng }));
       }
     }
   }, []);
