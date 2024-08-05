@@ -26,7 +26,6 @@ const ResultsMapView = () => {
 
   return isLoaded && showRes ? (
     <>
-      <div>{"should be showing after button click........"}</div>
       <div className="container-view">
         <GoogleMap
           mapContainerStyle={mapViewStyle}

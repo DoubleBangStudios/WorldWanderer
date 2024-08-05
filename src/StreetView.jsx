@@ -7,7 +7,7 @@ import {
 } from "@react-google-maps/api";
 import getRandomLatAndLng from "./LocationRepository";
 import { useDispatch, useSelector } from "react-redux";
-import { results, setFirstStart } from "./features/map/mapSlice";
+import { results, firstStart } from "./features/map/mapSlice";
 import { selectResults } from "./features/map/mapSelectors";
 
 const StreetView = () => {
@@ -29,9 +29,8 @@ const StreetView = () => {
 
   const coordsRef = useRef(latAndLng);
   const [currentCoords, setCurrentCoords] = useState(latAndLng);
-  const [coordsChanged, setCoordsChanged] = useState(false); // State to trigger useEffect
+  const [coordsChanged, setCoordsChanged] = useState(false);
 
-  // this whole function needs to be changed.  works for now, but it needs love
   const onMarkerPositionChange = useCallback(() => {
     if (
       streetViewRef.current &&
@@ -44,8 +43,8 @@ const StreetView = () => {
 
       if (coordsRef.current.lat !== lat || coordsRef.current.lng !== lng) {
         coordsRef.current = { lat, lng };
-        setCoordsChanged((prev) => !prev); // Toggle state to trigger useEffect
-        dispatch(setFirstStart({ lat: lat, lng: lng }));
+        setCoordsChanged((prev) => !prev);
+        dispatch(firstStart({ lat: lat, lng: lng }));
       }
     }
   }, []);
@@ -59,7 +58,7 @@ const StreetView = () => {
 
   useEffect(() => {
     setCurrentCoords(coordsRef.current);
-  }, [coordsChanged]); // Dependency array includes coordsChanged
+  }, [coordsChanged]);
 
   const showRes = useSelector(selectResults);
 

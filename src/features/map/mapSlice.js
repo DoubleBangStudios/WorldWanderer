@@ -12,11 +12,11 @@ export const mapSlice = createSlice({
   name: "map",
   initialState,
   reducers: {
-    setFirstStart: (state, action) => {
+    firstStart: (state, action) => {
       const { lat, lng } = action.payload;
       state.coords.start = { id: nanoid(), lat, lng };
     },
-    setFirstEnd: (state, action) => {
+    firstEnd: (state, action) => {
       const { lat, lng } = action.payload;
       state.coords.end = { id: nanoid(), lat, lng };
     },
@@ -27,6 +27,6 @@ export const mapSlice = createSlice({
   },
 });
 
-export const { results, setFirstStart, setFirstEnd } = mapSlice.actions;
+export const { results, firstStart, firstEnd } = mapSlice.actions;
 
 export default mapSlice.reducer;

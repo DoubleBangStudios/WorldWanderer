@@ -1,8 +1,8 @@
 import "./MapView.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { useDispatch, useSelector } from "react-redux";
-import { setFirstEnd } from "./features/map/mapSlice";
+import { firstStart } from "./features/map/mapSlice";
 import { selectResults } from "./features/map/mapSelectors";
 
 const MapView = () => {
@@ -29,7 +29,7 @@ const MapView = () => {
   const handleClickedMap = (e) => {
     const newCoords = { lat: e.latLng.lat(), lng: e.latLng.lng() };
     setCoords(newCoords);
-    dispatch(setFirstEnd(newCoords));
+    dispatch(firstStart(newCoords));
   };
 
   const showRes = useSelector(selectResults);
