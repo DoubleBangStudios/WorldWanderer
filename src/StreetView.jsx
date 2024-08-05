@@ -6,8 +6,9 @@ import {
   StreetViewPanorama,
 } from "@react-google-maps/api";
 import getRandomLatAndLng from "./LocationRepository";
-import { useDispatch } from "react-redux";
-import { setFirstStart } from "./features/map/mapSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { results, setFirstStart } from "./features/map/mapSlice";
+import { selectResults } from "./features/map/mapSelectors";
 
 const StreetView = () => {
   const dispatch = useDispatch();
@@ -60,7 +61,13 @@ const StreetView = () => {
     setCurrentCoords(coordsRef.current);
   }, [coordsChanged]); // Dependency array includes coordsChanged
 
-  return isLoaded ? (
+  const showRes = useSelector(selectResults);
+
+  const handleClick = () => {
+    dispatch(results(true));
+  };
+
+  return isLoaded && !showRes ? (
     <>
       <div className="container-view">
         <div
@@ -73,6 +80,10 @@ const StreetView = () => {
         >
           {currentCoords.lat}
           {currentCoords.lng}
+          <button
+            style={{ backgroundColor: "Lime", marginLeft: "5%" }}
+            onClick={handleClick}
+          />
         </div>
         <GoogleMap mapContainerStyle={streetViewStyle} zoom={10}>
           <div className="street-view">
@@ -90,7 +101,7 @@ const StreetView = () => {
       </div>
     </>
   ) : (
-    <div>Loading...</div>
+    <div></div>
   );
 };
 

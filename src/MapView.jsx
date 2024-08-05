@@ -1,14 +1,15 @@
 import "./MapView.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setFirstEnd } from "./features/map/mapSlice";
+import { selectResults } from "./features/map/mapSelectors";
 
 const MapView = () => {
   const dispatch = useDispatch();
   const [coords, setCoords] = useState({
-    lat: 0,
-    lng: 0,
+    lat: 5,
+    lng: 5,
   });
 
   const { isLoaded } = useJsApiLoader({
@@ -31,9 +32,9 @@ const MapView = () => {
     dispatch(setFirstEnd(newCoords));
   };
 
-  console.log("rerender......");
+  const showRes = useSelector(selectResults);
 
-  return isLoaded ? (
+  return isLoaded && !showRes ? (
     <div className="container-view">
       <GoogleMap
         mapContainerStyle={mapViewStyle}
