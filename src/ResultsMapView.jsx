@@ -35,17 +35,21 @@ const ResultsMapView = () => {
     lat: useSelector(selectStartCoords).lat,
     lng: useSelector(selectStartCoords).lng,
   };
-  console.log(`lat and lng: ${JSON.stringify(endCoords, null, 2)}`);
-  console.log(endCoords.lat);
-  console.log(endCoords.lng);
+  const generateMiddleCoords = () => {
+    const halfLat = (startCoords.lat + endCoords.lat) / 2;
+    const halfLng = (startCoords.lng + endCoords.lng) / 2;
+    return { lat: halfLat, lng: halfLng };
+  };
+
+  const middleCoords = generateMiddleCoords();
 
   return isLoaded && showRes ? (
     <>
       <div className="container-view">
         <GoogleMap
           mapContainerStyle={mapViewStyle}
-          zoom={1}
-          center={{ lat: 0, lng: 0 }}
+          zoom={5}
+          center={middleCoords}
         >
           <PolylineF
             path={[startCoords, endCoords]}
