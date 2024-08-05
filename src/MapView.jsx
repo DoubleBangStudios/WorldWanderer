@@ -1,15 +1,15 @@
 import "./MapView.css";
 import { useState } from "react";
-import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
 import { useDispatch, useSelector } from "react-redux";
-import { firstStart } from "./features/map/mapSlice";
+import { firstEnd } from "./features/map/mapSlice";
 import { selectResults } from "./features/map/mapSelectors";
 
 const MapView = () => {
   const dispatch = useDispatch();
   const [coords, setCoords] = useState({
-    lat: 5,
-    lng: 5,
+    lat: 0,
+    lng: 0,
   });
 
   const { isLoaded } = useJsApiLoader({
@@ -29,7 +29,7 @@ const MapView = () => {
   const handleClickedMap = (e) => {
     const newCoords = { lat: e.latLng.lat(), lng: e.latLng.lng() };
     setCoords(newCoords);
-    dispatch(firstStart(newCoords));
+    dispatch(firstEnd(newCoords));
   };
 
   const showRes = useSelector(selectResults);
@@ -42,7 +42,7 @@ const MapView = () => {
         center={coords}
         onClick={handleClickedMap}
       >
-        {coords.lat !== 0 && coords.lng !== 0 && <Marker position={coords} />}
+        {coords.lat !== 0 && coords.lng !== 0 && <MarkerF position={coords} />}
       </GoogleMap>
     </div>
   ) : (

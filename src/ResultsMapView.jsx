@@ -2,11 +2,15 @@ import "./ResultsMapView.css";
 import { useSelector } from "react-redux";
 import {
   GoogleMap,
-  Marker,
-  Polyline,
+  MarkerF,
+  PolylineF,
   useJsApiLoader,
 } from "@react-google-maps/api";
-import { selectResults } from "./features/map/mapSelectors";
+import {
+  selectEndCoords,
+  selectStartCoords,
+  selectResults,
+} from "./features/map/mapSelectors";
 
 const ResultsMapView = () => {
   const { isLoaded } = useJsApiLoader({
@@ -23,6 +27,17 @@ const ResultsMapView = () => {
   };
 
   const showRes = useSelector(selectResults);
+  const endCoords = {
+    lat: useSelector(selectEndCoords).lat,
+    lng: useSelector(selectEndCoords).lng,
+  };
+  const startCoords = {
+    lat: useSelector(selectStartCoords).lat,
+    lng: useSelector(selectStartCoords).lng,
+  };
+  console.log(`lat and lng: ${JSON.stringify(endCoords, null, 2)}`);
+  console.log(endCoords.lat);
+  console.log(endCoords.lng);
 
   return isLoaded && showRes ? (
     <>
@@ -32,15 +47,14 @@ const ResultsMapView = () => {
           zoom={1}
           center={{ lat: 0, lng: 0 }}
         >
-          <Polyline
-            path={[
-              { lat: 0, lng: 0 },
-              { lat: 0, lng: 0 },
-            ]}
+          <PolylineF
+            path={[startCoords, endCoords]}
             strokeColor="#0000FF"
             strokeOpacity={0.8}
             strokeWeight={2}
           />
+          <MarkerF position={startCoords} />
+          <MarkerF position={endCoords} />
         </GoogleMap>
       </div>
     </>
