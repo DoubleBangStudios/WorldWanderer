@@ -41,6 +41,7 @@ const MapView = () => {
         zoom={1}
         center={coords}
         onClick={handleClickedMap}
+        options={{ mapTypeControl: false, streetViewControl: false }}
       >
         {coords.lat !== 0 && coords.lng !== 0 && <MarkerF position={coords} />}
       </GoogleMap>

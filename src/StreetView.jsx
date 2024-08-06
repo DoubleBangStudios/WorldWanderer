@@ -25,7 +25,11 @@ const StreetView = () => {
   };
 
   const latAndLng = getRandomLatAndLng();
-  const streetViewOptions = { addressControl: false };
+  const streetViewOptions = {
+    addressControl: false,
+    showRoadLabels: false,
+    enableCloseButton: false,
+  };
 
   const coordsRef = useRef(latAndLng);
   const [currentCoords, setCurrentCoords] = useState(latAndLng);
